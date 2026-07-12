@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Esther's Slim Shape</title>
+<style>
+body{font-family:Arial,sans-serif;background:#fff7fb;color:#555;margin:0}
+header{background:linear-gradient(90deg,#ffd6ea,#efe0ff);padding:20px;text-align:center}
+.card{background:#fff;margin:15px;border-radius:18px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+details summary{font-weight:bold;font-size:18px;cursor:pointer}
+.exercise{margin:10px 0;padding:10px;background:#faf6ff;border-radius:10px}
+.series{display:flex;gap:10px;align-items:center;margin:5px 0}
+input[type=number]{width:70px}
+progress{width:100%;height:18px}
+button{padding:10px 14px;border:none;border-radius:10px;background:#f8b9d4}
+</style></head>
+<body>
+<header><h1>🌸 Esther's Slim Shape 🌸</h1><p id="quote"></p><progress id="prog" max="100" value="0"></progress><div id="pct">0%</div></header>
+<div id="app"></div>
+<script>
+const quotes=["Good girl! 🌸","Every rep counts 🍑","Barbie Back loading...","Peach Mode Activated 🍑","Keep going princess ✨","Strong is beautiful 💕"];
+quote.textContent=quotes[Math.floor(Math.random()*quotes.length)];
+const data={
+"Segunda":[["Hip Thrust",5],["Romanian Deadlift",4],["Mesa Flexora",4],["Abdutora",4],["Pull Through",3],["Extensão 45°",3],["Glute Bridge",3],["Prancha",3]],
+"Terça":[["Puxada Frontal",4],["High Row",4],["Remada Baixa",4],["Face Pull",3],["Elevação Lateral",3],["Cable Crunch",3],["Elevação de Pernas",3],["Prancha",3]],
+"Quarta":[["Hip Thrust Unilateral",3],["Romanian Deadlift Halteres",4],["Mesa Flexora",3],["Leg Press",3],["Abdutora",3],["Extensão 45°",3],["Adutora",2],["Prancha Lateral",3]],
+"Quinta":[["Puxada Aberta",4],["Remada Unilateral",3],["Pullover",3],["Face Pull",3],["Rosca Martelo",2],["Tríceps Corda",2],["Reverse Crunch",3],["Russian Twist",3]],
+"Sexta":[["Hip Thrust",4],["Stiff",3],["Abdutora",4],["Pull Through",3],["Glute Bridge",3],["Extensão 45°",3],["Abdominal Infra",3],["Vacuum",1]]
+};
+const app=document.getElementById("app");
+function upd(){let c=0,t=0;document.querySelectorAll(".ck").forEach(x=>{t++;if(x.checked)c++;});let p=t?Math.round(c/t*100):0;prog.value=p;pct.textContent=p+"%";localStorage.setItem("estherSlim",document.body.innerHTML);}
+Object.entries(data).forEach(([day,exs])=>{
+let d=document.createElement("details");d.className="card";d.open=true;
+let s=document.createElement("summary");s.textContent=day;d.appendChild(s);
+exs.forEach(([n,ser])=>{
+let e=document.createElement("div");e.className="exercise";e.innerHTML="<b>"+n+"</b>";
+for(let i=1;i<=ser;i++){let r=document.createElement("div");r.className="series";
+r.innerHTML=`<label>S${i}<input class="ck" type="checkbox"></label> Peso <input type="number" step="0.5">kg`;
+e.appendChild(r);}
+d.appendChild(e);
+});
+d.innerHTML+=`<label><input class="ck" type="checkbox"> ❤️ Cardio 30 min</label><br>
+<label><input class="ck" type="checkbox"> 💧 2L Água</label><br>
+<textarea style="width:100%;height:60px" placeholder="Observações"></textarea>`;
+app.appendChild(d);
+});
+document.addEventListener("change",upd);
+upd();
+</script></body></html>
